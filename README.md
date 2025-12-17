@@ -2,80 +2,118 @@
 
 ![Smart Home Hub](https://images.unsplash.com/photo-1558002038-1091a16606f3?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3)
 
-A modern, responsive, and feature-rich IoT dashboard for managing smart home devices. Built with performance and user experience in mind.
+---
 
+> **A sleek and modern dashboard to monitor and control all your smart home devices in real time, built with performance, usability, and style at its core.**
+
+---
 
 ## 🚀 Live Demo
 
-🌐 **Live Application:**
+🌐 **Try the App Now:**  
+👉 [smart-home-frontend-three.vercel.app](https://smart-home-frontend-three.vercel.app)
 
-👉 [https://smart-home-frontend-three.vercel.app](https://smart-home-frontend-three.vercel.app)
+> _Experience a live, production version of the Smart Home dashboard. Manage devices, check activity logs, and enjoy a fully responsive interface!_
 
-Experience the full Smart Home IoT dashboard in action! Click the link above to explore the live, production-ready app.
+---
+
 ## 🖥️ Backend API
 
-This frontend is powered by a robust Node.js backend. You can find the complete backend source code here:
+This frontend is powered by a robust Node.js backend.  
+**Check out the backend repository:**  
+🔗 [Ashurai84/smart-home-iot-backend](https://github.com/Ashurai84/smart-home-iot-backend)
 
-🔗 **Backend Repository:** [Ashurai84/smart-home-iot-backend](https://github.com/Ashurai84/smart-home-iot-backend)
+> _See how device management, authentication, and real-time features are implemented, and use it to power your own smart home systems!_
 
-Explore the backend to see how device management, authentication, and real-time features are implemented.
+---
 
 ## ✨ Features
 
-- **📱 Interactive Dashboard**: Real-time overview of all connected devices.
-- **💡 Device Control**: Toggle lights, adjust AC temperature, and manage sensors.
-- **🔐 Secure Authentication**: Complete login and registration system.
-- **📊 Activity Logs**: Track device usage history and events.
-- **🎨 Modern UI**: Sleek, dark-mode inspired design using Glassmorphism.
-- **📱 Responsive**: Fully optimized for desktop, tablet, and mobile.
+- **📱 Interactive Dashboard** — Real-time overview of all your connected devices
+- **💡 Device Control** — Instantly toggle lights, set AC temperatures, manage sensors & more
+- **🔐 Secure Authentication** — Sign in/out and register securely
+- **📊 Activity Logs** — Track device usage history with clear, time-stamped logs
+- **🎨 Gorgeous Design** — Glassmorphism-inspired UI with clean dark mode
+- **📱 Fully Responsive** — Works perfectly on desktop, tablet, and mobile
+
+---
 
 ## 🛠️ Tech Stack
 
-- **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
-- **State Management**: React Query & Context API
-- **Icons**: [Lucide React](https://lucide.dev/)
+| Technology            | Usage                                      |
+|-----------------------|--------------------------------------------|
+| **React + Vite**      | App Framework & Build Tool                 |
+| **TypeScript**        | Strongly-typed Language                    |
+| **Tailwind CSS**      | Modern Utility-first Styling               |
+| **shadcn/ui**         | Customizable Design System & Components    |
+| **React Query**       | Data Fetching & State Synchronization      |
+| **Context API**       | Lightweight Global State                   |
+| **Lucide React**      | Icon Set                                   |
+
+---
 
 ## ⚡ Getting Started
 
 ### Prerequisites
 
-Ensure you have Node.js (v18+) and npm installed.
+- **Node.js** (v18+)
+- **npm**
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/Ashurai84/smart-home-iot-frontend.git
-   cd smart-home-iot-frontend
-   ```
+1. **Clone the Repository**
+    ```bash
+    git clone https://github.com/Ashurai84/smart-home-iot-frontend.git
+    cd smart-home-iot-frontend
+    ```
+2. **Install Dependencies**
+    ```bash
+    npm install
+    ```
+3. **Start the Development Server**
+    ```bash
+    npm run dev
+    ```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+---
 
-3. **Start the development server**
-   ```bash
-   npm run dev
-   ```
+## 📦 Production Build
 
-## 📦 Build for Production
-
-To create an optimized production build:
-
+To create an optimized build for deployment:
 ```bash
 npm run build
 ```
 
+---
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+We welcome contributions — your ideas and code can help smart homes everywhere!
 
-1. Fork the project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
+1. Fork this repository
+2. Create your Feature Branch  
+   `git checkout -b feature/AmazingFeature`
+3. Commit your changes  
+   `git commit -m 'Add some AmazingFeature'`
+4. Push to your branch  
+   `git push origin feature/AmazingFeature`
 5. Open a Pull Request
+
+---
+
+## ☕ Buy Me a Coffee
+
+If you find this project helpful or inspiring, feel free to [buy me a coffee!](https://buymeacoffee.com/ashurai_84)
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-support%20creator-yellow?logo=buy-me-a-coffee&logoColor=white)](https://buymeacoffee.com/ashurai_84)
+
+---
+
+## 📢 License & Community
+
+This project is MIT licensed and actively maintained by the community.  
+For feature requests, bug reports, or improvements — [open an issue](https://github.com/Ashurai84/smart-home-iot-frontend/issues)!
+
+---
+
+### Made with ❤️ by [Ashurai84](https://github.com/Ashurai84)
