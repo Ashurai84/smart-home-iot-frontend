@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getDevices, toggleDevice, updateACSettings, addDevice } from '../api/api';
+import { getDevices, toggleDevice, updateACSettings, addDevice, deleteDevice } from '../api/api';
 import Navbar from '../components/Navbar';
 import DeviceCard from '../components/DeviceCard';
 import ACModal from '../components/ACModal';
@@ -19,7 +19,9 @@ interface Device {
   name: string;
   type: string;
   room: string;
-  status: boolean;
+  status: string; // "on" or "off" from backend
+  temperature?: number; // For AC devices
+  mode?: string; // For AC devices
   acSettings?: {
     temperature: number;
     mode: string;
@@ -32,7 +34,7 @@ const Dashboard: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  
+
   // Modal states
   const [isACModalOpen, setIsACModalOpen] = useState(false);
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
@@ -49,11 +51,27 @@ const Dashboard: React.FC = () => {
   const fetchDevices = async () => {
     try {
       setError('');
+      console.log('🔄 Fetching devices from API...');
       const data = await getDevices();
-      setDevices(data);
+      console.log('✅ API Response received:', data);
+      console.log('📦 Response type:', typeof data);
+      console.log('📦 Response keys:', Object.keys(data || {}));
+      console.log('📋 Devices array:', data.devices);
+      console.log('📋 Devices array type:', typeof data.devices);
+      console.log('📋 Is array?:', Array.isArray(data.devices));
+
+      if (data.devices && Array.isArray(data.devices)) {
+        console.log('📋 Number of devices:', data.devices.length);
+        if (data.devices.length > 0) {
+          console.log('📋 First device:', data.devices[0]);
+        }
+      }
+
+      setDevices(data.devices || []);
     } catch (err: any) {
       setError('Failed to load devices. Please try again.');
-      console.error('Error fetching devices:', err);
+      console.error('❌ Error fetching devices:', err);
+      console.error('❌ Error details:', err.response?.data);
     } finally {
       setIsLoading(false);
       setIsRefreshing(false);
@@ -69,12 +87,14 @@ const Dashboard: React.FC = () => {
   // Handle device toggle
   const handleToggle = async (deviceId: string) => {
     try {
-      await toggleDevice(deviceId);
-      // Update local state
-      setDevices(prev => 
-        prev.map(device => 
-          device._id === deviceId 
-            ? { ...device, status: !device.status }
+      const response = await toggleDevice(deviceId);
+      console.log('Toggle response:', response);
+
+      // Update local state with the new device data from response
+      setDevices(prev =>
+        prev.map(device =>
+          device._id === deviceId
+            ? { ...device, status: response.device?.status || (device.status === "on" ? "off" : "on") }
             : device
         )
       );
@@ -125,9 +145,28 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  // Handle deleting a device
+  const handleDeleteDevice = async (deviceId: string) => {
+    if (!window.confirm('Are you sure you want to delete this device? This action cannot be undone.')) {
+      return;
+    }
+
+    try {
+      await deleteDevice(deviceId);
+      // Update local state to remove the deleted device
+      setDevices(prev => prev.filter(device => device._id !== deviceId));
+      toast.success('Device deleted successfully');
+    } catch (err) {
+      toast.error('Failed to delete device');
+      console.error('Error deleting device:', err);
+    }
+  };
+
   // Count devices by status
-  const onlineCount = devices.filter(d => d.status).length;
-  const offlineCount = devices.filter(d => !d.status).length;
+  // Count devices by status
+  const onlineCount = (devices || []).filter(d => d.status === "on").length;
+  // Calculate offline as total minus online to ensure numbers match, regardless of underlying status value
+  const offlineCount = (devices || []).length - onlineCount;
 
   return (
     <div className="min-h-screen bg-background">
@@ -257,6 +296,7 @@ const Dashboard: React.FC = () => {
                 device={device}
                 onToggle={handleToggle}
                 onOpenACModal={handleOpenACModal}
+                onDelete={handleDeleteDevice}
               />
             ))}
           </div>

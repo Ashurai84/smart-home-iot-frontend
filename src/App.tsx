@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 
 // Import protected route wrapper
 import ProtectedRoute from "./components/ProtectedRoute";
+import ServerStatus from "./components/ServerStatus";
 
 // Create React Query client
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <ServerStatus />
         <BrowserRouter>
           <Routes>
             {/* Public Routes */}
@@ -48,6 +50,14 @@ const App = () => (
             />
             <Route
               path="/logs"
+              element={
+                <ProtectedRoute>
+                  <Logs />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/logs/:deviceId"
               element={
                 <ProtectedRoute>
                   <Logs />

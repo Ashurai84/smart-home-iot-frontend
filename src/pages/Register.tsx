@@ -64,7 +64,7 @@ const Register: React.FC = () => {
     try {
       // Call register API
       const response = await registerUser(name, email, password);
-      
+
       // If registration returns a token, log the user in
       if (response.token) {
         login(response.token, email);
@@ -77,6 +77,9 @@ const Register: React.FC = () => {
       // Handle different error types
       if (err.response?.status === 400) {
         setError(err.response.data.message || 'User already exists');
+      } else if (err.response?.status === 500) {
+        // The backend returns 500 for duplicate keys (email already exists)
+        setError('Server error. Your email might already be registered.');
       } else if (err.response?.data?.message) {
         setError(err.response.data.message);
       } else {
@@ -97,7 +100,7 @@ const Register: React.FC = () => {
           </div>
           <h2 className="text-3xl font-bold mb-4">Join SmartHome Hub</h2>
           <p className="text-primary-foreground/80 max-w-md">
-            Create your account and start controlling your smart home devices 
+            Create your account and start controlling your smart home devices
             from anywhere in the world.
           </p>
         </div>
@@ -108,8 +111,8 @@ const Register: React.FC = () => {
         <div className="w-full max-w-md">
           {/* Logo and back link */}
           <div className="mb-8">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
             >
               <Home className="w-4 h-4" />

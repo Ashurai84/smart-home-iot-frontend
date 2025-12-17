@@ -12,7 +12,9 @@ interface Device {
   name: string;
   type: string;
   room: string;
-  status: boolean;
+  status: string; // "on" or "off" from backend
+  temperature?: number; // For AC devices
+  mode?: string; // For AC devices
   acSettings?: {
     temperature: number;
     mode: string;
@@ -74,7 +76,7 @@ const ACModal: React.FC<ACModalProps> = ({ device, isOpen, onClose, onSave }) =>
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div 
+      <div
         className="absolute inset-0 bg-foreground/50 backdrop-blur-sm"
         onClick={onClose}
       />
@@ -150,11 +152,10 @@ const ACModal: React.FC<ACModalProps> = ({ device, isOpen, onClose, onSave }) =>
                   key={m}
                   type="button"
                   onClick={() => setMode(m)}
-                  className={`px-4 py-3 rounded-xl font-medium capitalize transition-all duration-200 ${
-                    mode === m
+                  className={`px-4 py-3 rounded-xl font-medium capitalize transition-all duration-200 ${mode === m
                       ? 'bg-primary text-primary-foreground'
                       : 'bg-secondary text-foreground hover:bg-secondary/80'
-                  }`}
+                    }`}
                 >
                   {m}
                 </button>

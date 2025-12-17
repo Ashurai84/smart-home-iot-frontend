@@ -58,6 +58,12 @@ export const loginUser = async (email: string, password: string) => {
   return response.data;
 };
 
+// Check backend health
+export const getHealth = async () => {
+  const response = await api.get('/health');
+  return response.data;
+};
+
 // ============ DEVICE API FUNCTIONS ============
 
 // Get all devices for the logged-in user

@@ -4,7 +4,8 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { getLogs } from '../api/api';
+import { useParams } from 'react-router-dom';
+import api, { getLogs, getDevices } from '../api/api';
 import Navbar from '../components/Navbar';
 import { ScrollText, RefreshCw, AlertCircle, Clock, Info } from 'lucide-react';
 
@@ -12,37 +13,67 @@ import { ScrollText, RefreshCw, AlertCircle, Clock, Info } from 'lucide-react';
 interface LogEntry {
   _id: string;
   deviceName?: string;
-  device?: {
-    name: string;
-  };
+  device?: any; // Could be object or string ID
+  deviceId?: string; // Potential field
   action: string;
   timestamp: string;
+  createdAt?: string; // Potential backend field name
+  date?: string; // Potential backend field name
+  time?: string; // Potential backend field name
   details?: any;
 }
 
 const Logs: React.FC = () => {
   // State
   const [logs, setLogs] = useState<LogEntry[]>([]);
+  const [deviceMap, setDeviceMap] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
   const [isRefreshing, setIsRefreshing] = useState(false);
 
-  // Fetch logs on mount
-  useEffect(() => {
-    fetchLogs();
-  }, []);
+  const { deviceId } = useParams();
 
-  // Fetch all logs from API
-  const fetchLogs = async () => {
+  // Fetch data on mount
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true);
+      try {
+        // Fetch devices to create a name map (in case logs only have IDs)
+        const devicesData = await getDevices().catch(() => ({ devices: [] }));
+        const map: Record<string, string> = {};
+        if (devicesData.devices && Array.isArray(devicesData.devices)) {
+          devicesData.devices.forEach((d: any) => {
+            map[d._id] = d.name;
+          });
+        }
+        setDeviceMap(map);
+
+        // Fetch Logs
+        await fetchLogs(false);
+      } catch (err) {
+        console.error('Error loading initial data:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadData();
+  }, [deviceId]);
+
+  // Fetch logs from API
+  const fetchLogs = async (shouldSetLoading = true) => {
     try {
       setError('');
-      const data = await getLogs();
-      setLogs(data);
+      if (shouldSetLoading) setIsLoading(true);
+      const data = deviceId
+        ? await api.get(`/logs/${deviceId}`).then(res => res.data.logs)
+        : await getLogs().then(res => res.logs || res); // Handle potential response structure difference
+
+      setLogs(Array.isArray(data) ? data : (data.logs || []));
     } catch (err: any) {
       setError('Failed to load logs. Please try again.');
       console.error('Error fetching logs:', err);
     } finally {
-      setIsLoading(false);
+      if (shouldSetLoading) setIsLoading(false);
       setIsRefreshing(false);
     }
   };
@@ -50,12 +81,24 @@ const Logs: React.FC = () => {
   // Handle refresh button click
   const handleRefresh = () => {
     setIsRefreshing(true);
-    fetchLogs();
+    fetchLogs(false); // Don't trigger full loading spinner, just refresh icon
   };
 
   // Format timestamp to readable format
-  const formatTimestamp = (timestamp: string) => {
-    const date = new Date(timestamp);
+  const formatTimestamp = (timestamp: string | undefined, logEntry?: any) => {
+    // Try to find a valid timestamp field
+    const timeValue = timestamp || logEntry?.createdAt || logEntry?.date || logEntry?.time;
+
+    if (!timeValue) return 'Unknown Time';
+
+    const date = new Date(timeValue);
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      // console.warn('Invalid timestamp received:', timeValue); // Suppress warning to clean console
+      return 'Invalid Date';
+    }
+
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'short',
@@ -77,9 +120,24 @@ const Logs: React.FC = () => {
     }
   };
 
-  // Get device name from log entry
+  // Get device name from log entry or fallback to ID mapping
   const getDeviceName = (log: LogEntry) => {
-    return log.deviceName || log.device?.name || 'Unknown Device';
+    // 1. Try direct name field
+    if (log.deviceName) return log.deviceName;
+
+    // 2. Try nested device object name
+    if (log.device && typeof log.device === 'object' && log.device.name) {
+      return log.device.name;
+    }
+
+    // 3. Try to map from device ID (which could be in log.device or log.deviceId)
+    const idToLookup = typeof log.device === 'string' ? log.device : log.deviceId;
+
+    if (idToLookup && deviceMap[idToLookup]) {
+      return deviceMap[idToLookup];
+    }
+
+    return 'Unknown Device';
   };
 
   // Get action badge color
@@ -197,7 +255,7 @@ const Logs: React.FC = () => {
                         </td>
                         <td className="px-6 py-4">
                           <span className="text-muted-foreground text-sm">
-                            {formatTimestamp(log.timestamp)}
+                            {formatTimestamp(log.timestamp, log)}
                           </span>
                         </td>
                         <td className="px-6 py-4">
@@ -233,7 +291,7 @@ const Logs: React.FC = () => {
 
                   <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                     <Clock className="w-4 h-4" />
-                    {formatTimestamp(log.timestamp)}
+                    {formatTimestamp(log.timestamp, log)}
                   </div>
 
                   {log.details && (
