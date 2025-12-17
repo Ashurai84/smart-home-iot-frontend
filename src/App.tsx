@@ -1,8 +1,3 @@
-/**
- * Main App Component for SmartHome Hub
- * Sets up routing and global providers
- */
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";

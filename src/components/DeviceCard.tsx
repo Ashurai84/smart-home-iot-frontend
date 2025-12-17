@@ -1,8 +1,3 @@
-/**
- * DeviceCard Component
- * Displays a single smart home device with controls
- */
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {

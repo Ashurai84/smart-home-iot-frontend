@@ -1,8 +1,3 @@
-/**
- * ACModal Component
- * Modal for updating AC device settings (temperature and mode)
- */
-
 import React, { useState, useEffect } from 'react';
 import { X, Thermometer, Wind } from 'lucide-react';
 
@@ -153,8 +148,8 @@ const ACModal: React.FC<ACModalProps> = ({ device, isOpen, onClose, onSave }) =>
                   type="button"
                   onClick={() => setMode(m)}
                   className={`px-4 py-3 rounded-xl font-medium capitalize transition-all duration-200 ${mode === m
-                      ? 'bg-primary text-primary-foreground'
-                      : 'bg-secondary text-foreground hover:bg-secondary/80'
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-secondary text-foreground hover:bg-secondary/80'
                     }`}
                 >
                   {m}
