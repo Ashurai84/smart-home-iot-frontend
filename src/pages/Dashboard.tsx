@@ -125,9 +125,14 @@ const Dashboard: React.FC = () => {
       );
       setIsACModalOpen(false);
       toast.success('AC settings updated!');
-    } catch (err) {
-      toast.error('Failed to update AC settings');
+    } catch (err: any) {
       console.error('Error updating AC settings:', err);
+      // Check for specific backend error message
+      if (err.response?.data?.message) {
+        toast.error(err.response.data.message);
+      } else {
+        toast.error('Failed to update AC settings');
+      }
     }
   };
 

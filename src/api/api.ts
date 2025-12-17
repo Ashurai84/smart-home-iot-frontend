@@ -67,8 +67,7 @@ export const updateACSettings = async (
   deviceId: string,
   settings: { temperature: number; mode: string }
 ) => {
-  // Wrapping settings in acSettings object to match likely backend schema expectation
-  const response = await api.patch(`/devices/${deviceId}/ac-settings`, { acSettings: settings });
+  const response = await api.patch(`/devices/${deviceId}/ac-settings`, settings);
   return response.data;
 };
 
