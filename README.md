@@ -1,46 +1,69 @@
-# SmartHome Hub
+# Smart Home IoT Frontend
 
-## Project Info
+![Smart Home Hub](https://images.unsplash.com/photo-1558002038-1091a16606f3?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3)
 
-**Description**: SmartHome Hub - A modern IoT web application to control your smart home devices. Manage lights, ACs, sensors, and more from a single dashboard.
+A modern, responsive, and feature-rich IoT dashboard for managing smart home devices. Built with performance and user experience in mind.
 
-## Live Demo
+## 🚀 Live Demo
 
-[https://smart-home-frontend-nine.vercel.app](https://smart-home-frontend-nine.vercel.app)
+**[View Live Application](https://smart-home-frontend-nine.vercel.app)**
 
+## ✨ Features
 
-## Getting Started
+- **📱 Interactive Dashboard**: Real-time overview of all connected devices.
+- **💡 Device Control**: Toggle lights, adjust AC temperature, and manage sensors.
+- **🔐 Secure Authentication**: Complete login and registration system.
+- **📊 Activity Logs**: Track device usage history and events.
+- **🎨 Modern UI**: Sleek, dark-mode inspired design using Glassmorphism.
+- **📱 Responsive**: Fully optimized for desktop, tablet, and mobile.
+
+## 🛠️ Tech Stack
+
+- **Framework**: [React](https://reactjs.org/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **UI Components**: [shadcn/ui](https://ui.shadcn.com/)
+- **State Management**: React Query & Context API
+- **Icons**: [Lucide React](https://lucide.dev/)
+
+## ⚡ Getting Started
 
 ### Prerequisites
 
-- Node.js & npm installed
+Ensure you have Node.js (v18+) and npm installed.
 
 ### Installation
 
-1. Install the necessary dependencies:
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/Ashurai84/smart-home-iot-frontend.git
+   cd smart-home-iot-frontend
+   ```
 
-```bash
-npm install
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-2. Start the development server:
+3. **Start the development server**
+   ```bash
+   npm run dev
+   ```
 
-```bash
-npm run dev
-```
+## 📦 Build for Production
 
-## Technologies Used
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## Deployment
-
-Build the project for production:
+To create an optimized production build:
 
 ```bash
 npm run build
 ```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
