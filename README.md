@@ -4,9 +4,21 @@
 
 A modern, responsive, and feature-rich IoT dashboard for managing smart home devices. Built with performance and user experience in mind.
 
+
 ## 🚀 Live Demo
 
-**[View Live Application](https://smart-home-frontend-nine.vercel.app)**
+🌐 **Live Application:**
+
+👉 [https://smart-home-frontend-three.vercel.app](https://smart-home-frontend-three.vercel.app)
+
+Experience the full Smart Home IoT dashboard in action! Click the link above to explore the live, production-ready app.
+## 🖥️ Backend API
+
+This frontend is powered by a robust Node.js backend. You can find the complete backend source code here:
+
+🔗 **Backend Repository:** [Ashurai84/smart-home-iot-backend](https://github.com/Ashurai84/smart-home-iot-backend)
+
+Explore the backend to see how device management, authentication, and real-time features are implemented.
 
 ## ✨ Features
 
