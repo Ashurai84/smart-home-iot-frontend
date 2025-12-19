@@ -1,6 +1,6 @@
 # Smart Home IoT Frontend
 
-![Smart Home Hub](https://ibb.co/60TLpKX2)
+![Smart Home Hub](<a href="https://ibb.co/60TLpKX2"><img src="https://i.ibb.co/60TLpKX2/Gemini-Generated-Image-z5687iz5687iz568.png" alt="Gemini-Generated-Image-z5687iz5687iz568" border="0"></a>)
 
 ---
 
