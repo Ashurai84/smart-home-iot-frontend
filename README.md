@@ -1,6 +1,6 @@
 # Smart Home IoT Frontend
 
-![Smart Home Hub](https://images.unsplash.com/photo-1558002038-1091a16606f3?auto=format&fit=crop&q=80&w=2000&ixlib=rb-4.0.3)
+![Smart Home Hub](https://ibb.co/60TLpKX2)
 
 ---
 
